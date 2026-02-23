@@ -1,73 +1,79 @@
-# React + TypeScript + Vite
+# ApproveFlow Enterprise 🚀
+**Automated Document Workflow & Digital Approval System**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ApproveFlow is a high-performance, full-stack enterprise solution designed to digitize organizational paper trails. It allows users to submit documents, routes them through multi-stage approval hierarchies, and generates secure, stamped PDFs upon final authorization.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔗 Live Links
+* **Live Application:** `https://approveflow-frontend.vercel.app`
+* **API Documentation (Swagger):** `https://approveflow-api.onrender.com/docs`
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🔑 Evaluation / Test Credentials
+To evaluate the multi-user workflow and see how data transitions between roles, please use the following pre-configured accounts:
 
-## Expanding the ESLint configuration
+| Role | Email | Password | Access Level |
+| :--- | :--- | :--- | :--- |
+| **Super Admin** | `admin@gmail.com` | `think@123` | System Config, Audit Logs, User Management |
+| **HOD** | `carol@gmail.com` | `pass` | Approval Queue, Digital Signing |
+| **Manager** | `bob@gmail.com` | `pass` | Approval Queue, Digital Signing |
+| **Student / Staff** | `alice@gmail.com` | `pass` | Document Submission, Request Tracking |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+> **Note:** Since the backend is hosted on a free tier, please allow **30-50 seconds** for the first login. This is due to the server "waking up" from inactivity.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## ✨ Core Features
+* **Dynamic Workflows:** Create custom approval paths (e.g., Student → Tutor → HOD).
+* **Automated PDF Generation:** The system generates a final PDF with approval stamps using `xhtml2pdf` upon final HOD authorization.
+* **Secure Cloud Storage:** All documents are encrypted and stored in S3-compatible storage (Backblaze B2).
+* **Real-time Audit Logs:** Every action—including logins, uploads, and approvals—is timestamped and logged for compliance.
+* **Role-Based Access Control (RBAC):** Strict JWT-based security ensures users only interact with data relevant to their specific roles.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Technical Stack
+### **Backend**
+* **Framework:** FastAPI (Python 3.10)
+* **Database:** PostgreSQL (Hosted on Neon.tech)
+* **ORM:** SQLAlchemy with declarative mapping
+* **Storage:** S3-Compatible API via MinIO/Backblaze B2
+* **Security:** OAuth2 with JWT Bearer tokens and Bcrypt password hashing
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### **Frontend**
+* **Library:** React 18 with TypeScript
+* **Build Tool:** Vite
+* **Styling:** Tailwind CSS + Lucide Icons
+* **State Management:** TanStack Query (React Query) & Axios
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## 🏗️ Architecture
+The system follows a modern decoupled architecture:
+1.  **Client Layer:** React SPA deployed on Vercel.
+2.  **API Layer:** FastAPI server on Render.com.
+3.  **Data Layer:** PostgreSQL for relational data and Backblaze B2 for binary objects.
+
+
+
+---
+
+## 🚀 Local Development
+1.  **Backend:**
+    ```bash
+    cd backend
+    python -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    uvicorn app.main:app --reload
+    ```
+2.  **Frontend:**
+    ```bash
+    cd frontend
+    npm install
+    npm run dev
+    ```
+
+---
